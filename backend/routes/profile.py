@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from extensions import db
 from models import User, UserSkill
 from services.resume_parser import extract_text, UnsupportedFileType
-from services.skill_matcher import extract_skills_from_text, resolve_skill_id, list_skills, list_roles
+from services.skill_matcher import extract_skills_with_ml_assist, resolve_skill_id, list_skills, list_roles
 
 bp = Blueprint("profile", __name__, url_prefix="/api/profile")
 
@@ -45,7 +45,9 @@ def set_skills():
 def upload_resume():
     """Extracts text from an uploaded resume and returns the skills it
     recognizes — the frontend shows these as pre-filled chips for the user
-    to confirm, rather than silently trusting the parse."""
+    to confirm, rather than silently trusting the parse. Combines plain
+    keyword matching with the trained model in backend/ml/, if one exists
+    (ml_used tells the frontend which happened, purely informational)."""
     if "resume" not in request.files:
         return jsonify({"error": "No file uploaded under field name 'resume'"}), 400
 
@@ -54,8 +56,13 @@ def upload_resume():
     except UnsupportedFileType as e:
         return jsonify({"error": str(e)}), 400
 
-    skill_ids = extract_skills_from_text(text)
-    return jsonify({"detected_skill_ids": skill_ids, "char_count": len(text)})
+    result = extract_skills_with_ml_assist(text)
+    return jsonify({
+        "detected_skill_ids": result["skill_ids"],
+        "ml_used": result["ml_used"],
+        "ml_raw_phrases": result["ml_raw_phrases"],
+        "char_count": len(text),
+    })
 
 
 @bp.put("/target")
@@ -65,5 +72,25 @@ def set_target():
     user = User.query.get_or_404(int(get_jwt_identity()))
     user.target_role = body.get("target_role", user.target_role)
     user.experience_level = body.get("experience_level", user.experience_level)
+    db.session.commit()
+    return jsonify(user.to_dict())
+
+
+@bp.put("/me")
+@jwt_required()
+def update_me():
+    """Settings-page profile edit: name and current_role only. Email and
+    password changes aren't exposed here on purpose — those touch login
+    identity/security and deserve their own verified flow, not a quiet
+    field edit (see README 'What's not built yet')."""
+    body = request.get_json(force=True) or {}
+    user = User.query.get_or_404(int(get_jwt_identity()))
+
+    name = (body.get("name") or "").strip()
+    if name:
+        user.name = name
+    if "current_role" in body:
+        user.current_role = body["current_role"]
+
     db.session.commit()
     return jsonify(user.to_dict())

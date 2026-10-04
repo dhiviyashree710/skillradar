@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { SlidersHorizontal, Clock, Star, ExternalLink } from "lucide-react";
 import AppShell from "../components/AppShell";
+import { SkeletonCards } from "../components/Skeleton";
+import { useToast } from "../components/Toast";
 import api from "../lib/api";
 
 export default function RecommendationsPage() {
@@ -9,6 +11,7 @@ export default function RecommendationsPage() {
   const [saved, setSaved] = useState(new Set());
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -22,13 +25,15 @@ export default function RecommendationsPage() {
 
   const toggleSave = async (course) => {
     const next = new Set(saved);
-    next.has(course.title) ? next.delete(course.title) : next.add(course.title);
+    const adding = !next.has(course.title);
+    adding ? next.add(course.title) : next.delete(course.title);
     setSaved(next);
     // Persist to the tracker board as a "to_learn" item for this skill.
     try {
       await api.post("/tracker", { skill_id: course.skill_id, status: "to_learn" });
+      if (adding) toast.show(`Added "${course.title}" to your learning plan`, "success");
     } catch {
-      /* non-fatal for the UI */
+      toast.show("Couldn't save that to your plan — try again.", "error");
     }
   };
 
@@ -53,14 +58,14 @@ export default function RecommendationsPage() {
         ))}
       </div>
 
-      {error && <p className="text-coral text-sm mb-4">{error}</p>}
-      {loading && <p className="text-white/40 text-sm">Loading…</p>}
+      {error && <p className="text-coral text-sm mb-4 sr-fadeup">{error}</p>}
+      {loading && <SkeletonCards count={6} />}
       {!loading && !error && courses.length === 0 && (
-        <p className="text-white/40 text-sm">No gaps here — nice work, or set a target role on the onboarding page first.</p>
+        <p className="text-white/40 text-sm sr-fadeup">No gaps here — nice work, or set a target role on the onboarding page first.</p>
       )}
 
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-        {courses.map((c, i) => (
+        {!loading && courses.map((c, i) => (
           <div key={c.title} className="rounded-2xl p-5 border border-white/10 sr-card-hover sr-fadeup flex flex-col bg-ink2" style={{ animationDelay: `${i * 90}ms` }}>
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full font-mono uppercase bg-teal/10 text-teal">

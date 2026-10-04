@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Circle, Loader2, CheckCircle2, ArrowRight } from "lucide-react";
 import AppShell from "../components/AppShell";
 import ProgressBar from "../components/ProgressBar";
+import { SkeletonBlock } from "../components/Skeleton";
+import { useToast } from "../components/Toast";
 import api from "../lib/api";
 
 const COLUMNS = [
@@ -11,13 +13,15 @@ const COLUMNS = [
 ];
 
 export default function TrackerPage() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   const [error, setError] = useState("");
+  const toast = useToast();
 
   const load = () => {
-    api.get("/tracker").then((res) => setItems(res.data.items)).catch((err) =>
-      setError(err.response?.data?.error || "Couldn't load your tracker.")
-    );
+    api.get("/tracker").then((res) => setItems(res.data.items)).catch((err) => {
+      setError(err.response?.data?.error || "Couldn't load your tracker.");
+      setItems([]);
+    });
   };
 
   useEffect(load, []);
@@ -26,10 +30,23 @@ export default function TrackerPage() {
     setItems((prev) => prev.map((it) => (it.skill_id === skill_id ? { ...it, status: nextStatus } : it)));
     try {
       await api.post("/tracker", { skill_id, status: nextStatus });
+      if (nextStatus === "completed") toast.show(`Nice work — ${skill_id.replace(/_/g, " ")} closed out`, "success");
     } catch {
+      toast.show("Couldn't save that move — reverting.", "error");
       load(); // revert to server truth on failure
     }
   };
+
+  if (items === null) {
+    return (
+      <AppShell>
+        <SkeletonBlock className="h-8 w-56 mb-8" />
+        <div className="grid sm:grid-cols-3 gap-5">
+          {Array.from({ length: 3 }).map((_, i) => <SkeletonBlock key={i} className="h-48 w-full" />)}
+        </div>
+      </AppShell>
+    );
+  }
 
   const total = items.length;
   const done = items.filter((i) => i.status === "completed").length;

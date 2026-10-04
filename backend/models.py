@@ -17,6 +17,7 @@ class User(db.Model):
     current_role = db.Column(db.String(120), nullable=True)
     target_role = db.Column(db.String(120), nullable=True)
     experience_level = db.Column(db.String(50), nullable=True)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, default=utcnow)
 
     skills = db.relationship("UserSkill", backref="user", cascade="all, delete-orphan")
@@ -36,6 +37,7 @@ class User(db.Model):
             "current_role": self.current_role,
             "target_role": self.target_role,
             "experience_level": self.experience_level,
+            "is_admin": self.is_admin,
             "skills": [s.skill_id for s in self.skills],
         }
 

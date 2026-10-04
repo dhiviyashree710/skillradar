@@ -21,3 +21,10 @@ class Config:
 
     DATA_DIR = os.path.join(BASE_DIR, "data")
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5MB upload limit for resumes
+
+    # Comma-separated emails that get is_admin=True automatically on signup
+    # (and retroactively on login, in case they signed up before being added
+    # here). Set your own email in .env to unlock the Admin Panel screen.
+    ADMIN_EMAILS = {
+        e.strip().lower() for e in os.environ.get("ADMIN_EMAILS", "").split(",") if e.strip()
+    }

@@ -5,6 +5,8 @@ import {
 import AppShell from "../components/AppShell";
 import ReadinessRing from "../components/ReadinessRing";
 import ProgressBar from "../components/ProgressBar";
+import { SkeletonDashboard } from "../components/Skeleton";
+import { useToast } from "../components/Toast";
 import api from "../lib/api";
 
 const STATUS_COLOR = { Strong: "#35D0B5", Developing: "#FFB020", Missing: "#FF5D5D" };
@@ -12,17 +14,21 @@ const STATUS_COLOR = { Strong: "#35D0B5", Developing: "#FFB020", Missing: "#FF5D
 export default function DashboardPage() {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
+  const toast = useToast();
 
   useEffect(() => {
-    api.get("/analysis").then((res) => setData(res.data)).catch((err) =>
-      setError(err.response?.data?.error || "Couldn't load your analysis.")
-    );
+    api.get("/analysis").then((res) => setData(res.data)).catch((err) => {
+      const message = err.response?.data?.error || "Couldn't load your analysis.";
+      setError(message);
+      toast.show(message, "error");
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (error) {
     return (
       <AppShell>
-        <p className="text-coral text-sm">{error}</p>
+        <p className="text-coral text-sm sr-fadeup">{error}</p>
       </AppShell>
     );
   }
@@ -30,7 +36,7 @@ export default function DashboardPage() {
   if (!data) {
     return (
       <AppShell>
-        <p className="text-white/50 text-sm">Scanning your profile…</p>
+        <SkeletonDashboard />
       </AppShell>
     );
   }

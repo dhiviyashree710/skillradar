@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle2, ChevronRight, Plus, X, Upload } from "lucide-react";
 import Logo from "../components/Logo";
+import { useToast } from "../components/Toast";
 import api from "../lib/api";
 
 const EXPERIENCE_LEVELS = ["Fresher", "Intermediate", "Experienced"];
@@ -9,6 +10,7 @@ const STEPS = ["Your skills", "Resume (optional)", "Target role", "Experience"];
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
+  const toast = useToast();
   const [step, setStep] = useState(0);
   const [catalog, setCatalog] = useState({ skills: [], roles: [] });
   const [skills, setSkills] = useState([]);
@@ -49,8 +51,16 @@ export default function OnboardingPage() {
         .map((id) => catalog.skills.find((s) => s.id === id)?.name || id)
         .filter((name) => !skills.includes(name));
       setSkills([...skills, ...names]);
+      toast.show(
+        names.length
+          ? `Found ${names.length} skill${names.length > 1 ? "s" : ""} in your resume${data.ml_used ? " (model-assisted)" : ""}`
+          : "Resume read, but no matching skills found — add them manually below.",
+        names.length ? "success" : "info"
+      );
     } catch (err) {
-      setError(err.response?.data?.error || "Couldn't read that file.");
+      const message = err.response?.data?.error || "Couldn't read that file.";
+      setError(message);
+      toast.show(message, "error");
     } finally {
       setUploading(false);
     }

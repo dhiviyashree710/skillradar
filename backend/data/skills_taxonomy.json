@@ -1,35 +1,333 @@
 {
-  "_source_note": "Curated skills taxonomy in the style of open datasets like O*NET (onetcenter.org) and Lightcast Open Skills. Each skill has a canonical name, a category, and alias strings used for keyword matching against resume text. Replace or extend this file with the real O*NET/Lightcast download for production use — see README for links.",
+  "_source_note": "Curated skills taxonomy in the style of open datasets like O*NET (onetcenter.org) and Lightcast Open Skills. Each skill has a canonical name, a category, and alias strings used for keyword matching against resume text. Replace or extend this file with the real O*NET/Lightcast download for production use \u2014 see README for links.",
   "skills": [
-    { "id": "sql", "name": "SQL", "category": "Data", "aliases": ["sql", "structured query language", "postgresql", "mysql", "t-sql", "pl/sql"] },
-    { "id": "python", "name": "Python", "category": "Programming", "aliases": ["python", "pandas", "numpy", "python3"] },
-    { "id": "excel", "name": "Excel", "category": "Data", "aliases": ["excel", "microsoft excel", "spreadsheets", "vlookup", "pivot table"] },
-    { "id": "statistics", "name": "Statistics", "category": "Data", "aliases": ["statistics", "statistical analysis", "hypothesis testing", "regression"] },
-    { "id": "data_viz", "name": "Data Visualization", "category": "Data", "aliases": ["data visualization", "data viz", "dashboards", "matplotlib", "seaborn"] },
-    { "id": "power_bi", "name": "Power BI", "category": "Data", "aliases": ["power bi", "powerbi"] },
-    { "id": "tableau", "name": "Tableau", "category": "Data", "aliases": ["tableau"] },
-    { "id": "communication", "name": "Communication", "category": "Soft Skill", "aliases": ["communication", "presentation skills", "stakeholder management"] },
-    { "id": "javascript", "name": "JavaScript", "category": "Programming", "aliases": ["javascript", "js", "es6", "ecmascript"] },
-    { "id": "typescript", "name": "TypeScript", "category": "Programming", "aliases": ["typescript", "ts"] },
-    { "id": "react", "name": "React", "category": "Frontend", "aliases": ["react", "reactjs", "react.js", "hooks", "jsx"] },
-    { "id": "css", "name": "CSS", "category": "Frontend", "aliases": ["css", "css3", "sass", "scss", "tailwind"] },
-    { "id": "html", "name": "HTML", "category": "Frontend", "aliases": ["html", "html5"] },
-    { "id": "accessibility", "name": "Accessibility", "category": "Frontend", "aliases": ["accessibility", "a11y", "wcag", "aria"] },
-    { "id": "testing", "name": "Testing", "category": "Engineering Practice", "aliases": ["testing", "unit testing", "jest", "vitest", "cypress", "qa"] },
-    { "id": "git", "name": "Git", "category": "Engineering Practice", "aliases": ["git", "github", "version control", "gitlab"] },
-    { "id": "node", "name": "Node.js", "category": "Backend", "aliases": ["node", "node.js", "nodejs", "express"] },
-    { "id": "rest_api", "name": "REST APIs", "category": "Backend", "aliases": ["rest api", "rest", "api design", "restful"] },
-    { "id": "sql_db_design", "name": "Database Design", "category": "Backend", "aliases": ["database design", "normalization", "schema design", "erd"] },
-    { "id": "docker", "name": "Docker", "category": "DevOps", "aliases": ["docker", "containers", "containerization"] },
-    { "id": "ci_cd", "name": "CI/CD", "category": "DevOps", "aliases": ["ci/cd", "continuous integration", "github actions", "jenkins"] },
-    { "id": "cloud", "name": "Cloud (AWS/Azure/GCP)", "category": "DevOps", "aliases": ["aws", "azure", "gcp", "cloud computing", "s3", "ec2"] },
-    { "id": "machine_learning", "name": "Machine Learning", "category": "Data Science", "aliases": ["machine learning", "ml", "scikit-learn", "sklearn", "model training"] },
-    { "id": "deep_learning", "name": "Deep Learning", "category": "Data Science", "aliases": ["deep learning", "neural networks", "pytorch", "tensorflow"] },
-    { "id": "nlp", "name": "NLP", "category": "Data Science", "aliases": ["nlp", "natural language processing", "text mining"] },
-    { "id": "project_management", "name": "Project Management", "category": "Soft Skill", "aliases": ["project management", "scrum", "agile", "jira", "kanban"] },
-    { "id": "critical_thinking", "name": "Critical Thinking", "category": "Soft Skill", "aliases": ["critical thinking", "problem solving", "analytical thinking"] },
-    { "id": "figma", "name": "UI/UX Design (Figma)", "category": "Design", "aliases": ["figma", "ui design", "ux design", "wireframing", "prototyping"] },
-    { "id": "java", "name": "Java", "category": "Programming", "aliases": ["java", "spring boot", "j2ee"] },
-    { "id": "system_design", "name": "System Design", "category": "Engineering Practice", "aliases": ["system design", "scalability", "distributed systems"] }
+    {
+      "id": "sql",
+      "name": "SQL",
+      "category": "Data",
+      "aliases": [
+        "sql",
+        "structured query language",
+        "postgresql",
+        "mysql",
+        "t-sql",
+        "pl/sql"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "category": "Programming",
+      "aliases": [
+        "python",
+        "pandas",
+        "numpy",
+        "python3"
+      ]
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "category": "Data",
+      "aliases": [
+        "excel",
+        "microsoft excel",
+        "spreadsheets",
+        "vlookup",
+        "pivot table"
+      ]
+    },
+    {
+      "id": "statistics",
+      "name": "Statistics",
+      "category": "Data",
+      "aliases": [
+        "statistics",
+        "statistical analysis",
+        "hypothesis testing",
+        "regression"
+      ]
+    },
+    {
+      "id": "data_viz",
+      "name": "Data Visualization",
+      "category": "Data",
+      "aliases": [
+        "data visualization",
+        "data viz",
+        "dashboards",
+        "matplotlib",
+        "seaborn"
+      ]
+    },
+    {
+      "id": "power_bi",
+      "name": "Power BI",
+      "category": "Data",
+      "aliases": [
+        "power bi",
+        "powerbi"
+      ]
+    },
+    {
+      "id": "tableau",
+      "name": "Tableau",
+      "category": "Data",
+      "aliases": [
+        "tableau"
+      ]
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "category": "Soft Skill",
+      "aliases": [
+        "communication",
+        "presentation skills",
+        "stakeholder management"
+      ]
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "category": "Programming",
+      "aliases": [
+        "javascript",
+        "js",
+        "es6",
+        "ecmascript"
+      ]
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "category": "Programming",
+      "aliases": [
+        "typescript",
+        "ts"
+      ]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "category": "Frontend",
+      "aliases": [
+        "react",
+        "reactjs",
+        "react.js",
+        "hooks",
+        "jsx"
+      ]
+    },
+    {
+      "id": "css",
+      "name": "CSS",
+      "category": "Frontend",
+      "aliases": [
+        "css",
+        "css3",
+        "sass",
+        "scss",
+        "tailwind"
+      ]
+    },
+    {
+      "id": "html",
+      "name": "HTML",
+      "category": "Frontend",
+      "aliases": [
+        "html",
+        "html5"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "category": "Frontend",
+      "aliases": [
+        "accessibility",
+        "a11y",
+        "wcag",
+        "aria"
+      ]
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "category": "Engineering Practice",
+      "aliases": [
+        "testing",
+        "unit testing",
+        "jest",
+        "vitest",
+        "cypress",
+        "qa"
+      ]
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "category": "Engineering Practice",
+      "aliases": [
+        "git",
+        "github",
+        "version control",
+        "gitlab"
+      ]
+    },
+    {
+      "id": "node",
+      "name": "Node.js",
+      "category": "Backend",
+      "aliases": [
+        "node",
+        "node.js",
+        "nodejs",
+        "express"
+      ]
+    },
+    {
+      "id": "rest_api",
+      "name": "REST APIs",
+      "category": "Backend",
+      "aliases": [
+        "rest api",
+        "rest",
+        "api design",
+        "restful"
+      ]
+    },
+    {
+      "id": "sql_db_design",
+      "name": "Database Design",
+      "category": "Backend",
+      "aliases": [
+        "database design",
+        "normalization",
+        "schema design",
+        "erd"
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "category": "DevOps",
+      "aliases": [
+        "docker",
+        "containers",
+        "containerization"
+      ]
+    },
+    {
+      "id": "ci_cd",
+      "name": "CI/CD",
+      "category": "DevOps",
+      "aliases": [
+        "ci/cd",
+        "continuous integration",
+        "github actions",
+        "jenkins"
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud (AWS/Azure/GCP)",
+      "category": "DevOps",
+      "aliases": [
+        "aws",
+        "azure",
+        "gcp",
+        "cloud computing",
+        "s3",
+        "ec2"
+      ]
+    },
+    {
+      "id": "machine_learning",
+      "name": "Machine Learning",
+      "category": "Data Science",
+      "aliases": [
+        "machine learning",
+        "ml",
+        "scikit-learn",
+        "sklearn",
+        "model training"
+      ]
+    },
+    {
+      "id": "deep_learning",
+      "name": "Deep Learning",
+      "category": "Data Science",
+      "aliases": [
+        "deep learning",
+        "neural networks",
+        "pytorch",
+        "tensorflow"
+      ]
+    },
+    {
+      "id": "nlp",
+      "name": "NLP",
+      "category": "Data Science",
+      "aliases": [
+        "nlp",
+        "natural language processing",
+        "text mining"
+      ]
+    },
+    {
+      "id": "project_management",
+      "name": "Project Management",
+      "category": "Soft Skill",
+      "aliases": [
+        "project management",
+        "scrum",
+        "agile",
+        "jira",
+        "kanban"
+      ]
+    },
+    {
+      "id": "critical_thinking",
+      "name": "Critical Thinking",
+      "category": "Soft Skill",
+      "aliases": [
+        "critical thinking",
+        "problem solving",
+        "analytical thinking"
+      ]
+    },
+    {
+      "id": "figma",
+      "name": "UI/UX Design (Figma)",
+      "category": "Design",
+      "aliases": [
+        "figma",
+        "ui design",
+        "ux design",
+        "wireframing",
+        "prototyping"
+      ]
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "category": "Programming",
+      "aliases": [
+        "java",
+        "spring boot",
+        "j2ee"
+      ]
+    },
+    {
+      "id": "system_design",
+      "name": "System Design",
+      "category": "Engineering Practice",
+      "aliases": [
+        "system design",
+        "scalability",
+        "distributed systems"
+      ]
+    }
   ]
 }

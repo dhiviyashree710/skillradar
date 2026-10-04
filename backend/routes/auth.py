@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
+from config import Config
 from extensions import db
 from models import User
 
@@ -20,7 +21,12 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "An account with that email already exists"}), 409
 
-    user = User(name=name, email=email, current_role=body.get("current_role"))
+    user = User(
+        name=name,
+        email=email,
+        current_role=body.get("current_role"),
+        is_admin=email in Config.ADMIN_EMAILS,
+    )
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
@@ -38,6 +44,12 @@ def login():
     user = User.query.filter_by(email=email).first()
     if not user or not user.check_password(password):
         return jsonify({"error": "Invalid email or password"}), 401
+
+    # Keep is_admin in sync with .env in case ADMIN_EMAILS changed since signup.
+    should_be_admin = email in Config.ADMIN_EMAILS
+    if user.is_admin != should_be_admin:
+        user.is_admin = should_be_admin
+        db.session.commit()
 
     token = create_access_token(identity=str(user.id))
     return jsonify({"token": token, "user": user.to_dict()})

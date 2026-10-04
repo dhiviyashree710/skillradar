@@ -16,12 +16,14 @@ def create_app():
     jwt.init_app(app)
     cors.init_app(app, resources={r"/api/*": {"origins": Config.CORS_ORIGINS}})
 
-    from routes import auth, profile, analysis, recommendations, tracker
+    from routes import auth, profile, analysis, recommendations, tracker, admin, report
     app.register_blueprint(auth.bp)
     app.register_blueprint(profile.bp)
     app.register_blueprint(analysis.bp)
     app.register_blueprint(recommendations.bp)
     app.register_blueprint(tracker.bp)
+    app.register_blueprint(admin.bp)
+    app.register_blueprint(report.bp)
 
     @app.get("/api/health")
     def health():

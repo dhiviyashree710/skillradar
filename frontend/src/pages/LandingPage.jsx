@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
-import { ArrowRight, Upload, Target, GraduationCap } from "lucide-react";
+import { ArrowRight, Upload, Target, GraduationCap, Brain, ShieldCheck, FileDown } from "lucide-react";
 import Logo from "../components/Logo";
+import Reveal from "../components/Reveal";
 
 const SAMPLE_RADAR = [
   { skill: "SQL", required: 85, user: 70 },
@@ -83,12 +84,35 @@ export default function LandingPage() {
           { icon: Target, title: "See the exact gap", body: "A readiness score plus a color-coded breakdown, skill by skill." },
           { icon: GraduationCap, title: "Close it with a plan", body: "Courses matched to what's missing, tracked to completion." },
         ].map((f, i) => (
-          <div key={f.title} className="sr-fadeup p-6 rounded-2xl border border-white/10 sr-card-hover bg-ink2" style={{ animationDelay: `${i * 120}ms` }}>
-            <f.icon size={20} className="text-teal" />
-            <h3 className="font-display font-semibold mt-4">{f.title}</h3>
-            <p className="text-sm text-white/50 mt-2 leading-relaxed">{f.body}</p>
-          </div>
+          <Reveal key={f.title} delay={i * 100}>
+            <div className="p-6 rounded-2xl border border-white/10 sr-card-hover bg-ink2 h-full">
+              <f.icon size={20} className="text-teal" />
+              <h3 className="font-display font-semibold mt-4">{f.title}</h3>
+              <p className="text-sm text-white/50 mt-2 leading-relaxed">{f.body}</p>
+            </div>
+          </Reveal>
         ))}
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 pb-24">
+        <Reveal>
+          <p className="font-mono text-[11px] tracking-widest uppercase text-white/40 mb-6">Under the hood</p>
+        </Reveal>
+        <div className="grid sm:grid-cols-3 gap-5">
+          {[
+            { icon: Brain, title: "Model-assisted parsing", body: "A trained classifier catches skill phrases plain keyword matching misses, layered on top of it." },
+            { icon: ShieldCheck, title: "Admin panel", body: "Edit the skill taxonomy, role templates and course catalog, and see gaps aggregated across every user." },
+            { icon: FileDown, title: "Exportable report", body: "Download your readiness score and skill breakdown as a PDF to share or keep." },
+          ].map((f, i) => (
+            <Reveal key={f.title} delay={i * 100}>
+              <div className="p-6 rounded-2xl border border-white/10 sr-card-hover bg-ink2 h-full">
+                <f.icon size={20} className="text-teal" />
+                <h3 className="font-display font-semibold mt-4">{f.title}</h3>
+                <p className="text-sm text-white/50 mt-2 leading-relaxed">{f.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       <footer className="border-t border-white/10 py-8 text-center text-xs text-white/30 font-mono">

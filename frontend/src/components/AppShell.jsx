@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, GraduationCap, ListChecks, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, GraduationCap, ListChecks, Settings, LogOut, ShieldCheck } from "lucide-react";
 import Logo from "./Logo";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,8 +10,14 @@ const NAV_ITEMS = [
   { to: "/tracker", label: "Progress Tracker", icon: ListChecks },
 ];
 
+function navLinkClass({ isActive }) {
+  return `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+    isActive ? "bg-teal/10 text-teal translate-x-0.5" : "text-white/55 hover:text-white hover:translate-x-0.5"
+  }`;
+}
+
 export default function AppShell({ children }) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -20,24 +26,22 @@ export default function AppShell({ children }) {
         <div className="mb-10"><Logo light to="/" /></div>
         <nav className="flex flex-col gap-1">
           {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  isActive ? "bg-teal/10 text-teal" : "text-white/55 hover:text-white"
-                }`
-              }
-            >
+            <NavLink key={to} to={to} className={navLinkClass}>
               <Icon size={16} />
               {label}
             </NavLink>
           ))}
+          {user?.is_admin && (
+            <NavLink to="/admin" className={navLinkClass}>
+              <ShieldCheck size={16} />
+              Admin Panel
+            </NavLink>
+          )}
         </nav>
         <div className="mt-auto flex flex-col gap-1 pt-6 border-t border-white/10">
-          <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/50 hover:text-white transition-colors">
+          <NavLink to="/settings" className={navLinkClass}>
             <Settings size={16} /> Settings
-          </button>
+          </NavLink>
           <button
             onClick={() => { logout(); navigate("/"); }}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/50 hover:text-white transition-colors"

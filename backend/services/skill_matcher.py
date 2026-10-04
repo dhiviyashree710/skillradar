@@ -1,4 +1,5 @@
-"""Rule-based skill matching — no AI API, no model training.
+"""Skill matching — rule-based by default, with an optional trained-model
+assist layered on top.
 
 This is the core logic the whole project is built around: it loads the
 open-style taxonomy/role/course JSON files from backend/data/ once, then
@@ -9,8 +10,12 @@ answers three questions with plain lookups and arithmetic:
      to a role's requirements?
   3. Which courses close the specific gaps that comparison finds?
 
-Swap this module out for an LLM-API-backed version later without touching
-any route code — every route only calls the functions defined here.
+Question 1 also calls out to ml_skill_extractor.py, which uses the
+classifier trained in backend/ml/ (see backend/ml/README.md) if one
+exists, to catch skill phrases the fixed taxonomy's alias list would
+otherwise miss. If no model has been trained yet, that call is a no-op
+and matching falls back to keywords alone — nothing here depends on the
+model existing.
 """
 
 import json
@@ -18,6 +23,7 @@ import os
 from functools import lru_cache
 
 from config import Config
+from services.ml_skill_extractor import extract_skill_phrases_ml, is_model_available
 
 # Experience level -> assumed proficiency ceiling for any skill the user
 # claims to have. A fresher who lists "SQL" probably isn't at the same
@@ -43,6 +49,12 @@ def _load_json(filename):
         return json.load(f)
 
 
+def _save_json(filename, data):
+    path = os.path.join(Config.DATA_DIR, filename)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
 @lru_cache(maxsize=1)
 def get_taxonomy():
     """id -> {id, name, category, aliases} for every known skill."""
@@ -66,15 +78,74 @@ def list_roles():
     return list(get_roles().keys())
 
 
+# --- Admin-panel write paths -------------------------------------------
+# These are the only functions that touch the JSON files on disk after
+# startup. Each one writes the full file back out, then clears the
+# relevant lru_cache so the next read picks up the change — there's no
+# separate "admin database," the taxonomy/role/course JSON files are the
+# single source of truth in both directions.
+
+def save_skill(skill):
+    """Insert or update one skill (matched by id) in skills_taxonomy.json."""
+    data = _load_json("skills_taxonomy.json")
+    data["skills"] = [s for s in data["skills"] if s["id"] != skill["id"]] + [skill]
+    _save_json("skills_taxonomy.json", data)
+    get_taxonomy.cache_clear()
+
+
+def delete_skill(skill_id):
+    data = _load_json("skills_taxonomy.json")
+    data["skills"] = [s for s in data["skills"] if s["id"] != skill_id]
+    _save_json("skills_taxonomy.json", data)
+    get_taxonomy.cache_clear()
+
+
+def save_role(role_name, requirements):
+    """requirements: [{skill_id, required}, ...]. Creates the role if new."""
+    data = _load_json("role_requirements.json")
+    existing = data["roles"].get(role_name, {})
+    data["roles"][role_name] = {
+        "experience_levels": existing.get("experience_levels", ["Fresher", "Intermediate", "Experienced"]),
+        "requirements": requirements,
+    }
+    _save_json("role_requirements.json", data)
+    get_roles.cache_clear()
+
+
+def delete_role(role_name):
+    data = _load_json("role_requirements.json")
+    data["roles"].pop(role_name, None)
+    _save_json("role_requirements.json", data)
+    get_roles.cache_clear()
+
+
+def save_course(course):
+    """course must include a unique 'title'; matched/replaced by title."""
+    data = _load_json("courses.json")
+    data["courses"] = [c for c in data["courses"] if c["title"] != course["title"]] + [course]
+    _save_json("courses.json", data)
+    get_courses.cache_clear()
+
+
+def delete_course(title):
+    data = _load_json("courses.json")
+    data["courses"] = [c for c in data["courses"] if c["title"] != title]
+    _save_json("courses.json", data)
+    get_courses.cache_clear()
+
+
 def list_skills():
     return list(get_taxonomy().values())
 
 
 def resolve_skill_id(name_or_id):
     """Accepts either a taxonomy id ('sql') or a free-text name ('SQL',
-    'Structured Query Language') and returns the canonical id, or None."""
+    'Structured Query Language') and returns the canonical id, or None.
+    Strips trailing punctuation a tokenizer can leave behind (e.g. "Docker."
+    at the end of a sentence) before comparing, so phrases pulled straight
+    from extract_skills_from_text()/the ML extractor still resolve."""
     taxonomy = get_taxonomy()
-    needle = name_or_id.strip().lower()
+    needle = name_or_id.strip().lower().strip(".,;:!?()[]\"'")
     if needle in taxonomy:
         return needle
     for skill_id, skill in taxonomy.items():
@@ -84,10 +155,8 @@ def resolve_skill_id(name_or_id):
 
 
 def extract_skills_from_text(text):
-    """Very small, dependency-free keyword matcher: scans resume text for
-    any taxonomy alias as a whole word. Good enough for a rule-based MVP;
-    swap for spaCy PhraseMatcher or an LLM call if you need fuzzier matching
-    (see README 'Upgrading the matcher' section)."""
+    """Dependency-free keyword matcher: scans resume text for any taxonomy
+    alias as a whole word. This alone is a complete, working matcher."""
     text_lower = f" {text.lower()} "
     found = []
     for skill_id, skill in get_taxonomy().items():
@@ -97,6 +166,31 @@ def extract_skills_from_text(text):
                 found.append(skill_id)
                 break
     return sorted(set(found))
+
+
+def extract_skills_with_ml_assist(text):
+    """Keyword matches, plus anything the trained model (backend/ml/)
+    recognizes that the fixed taxonomy's aliases missed. Returns:
+        {
+          "skill_ids": [...],       # resolved taxonomy ids, keyword + ML combined
+          "ml_used": bool,          # whether a trained model was actually available
+          "ml_raw_phrases": [...],  # free-text phrases the model found, for display
+        }
+    Safe to call even with no model trained — ml_used will be False and
+    behavior is identical to calling extract_skills_from_text() alone."""
+    keyword_ids = set(extract_skills_from_text(text))
+
+    ml_raw_phrases = extract_skill_phrases_ml(text)
+    for phrase in ml_raw_phrases:
+        skill_id = resolve_skill_id(phrase)
+        if skill_id:
+            keyword_ids.add(skill_id)
+
+    return {
+        "skill_ids": sorted(keyword_ids),
+        "ml_used": is_model_available(),
+        "ml_raw_phrases": ml_raw_phrases,
+    }
 
 
 def analyze_gap(user_skill_ids, target_role, experience_level):

@@ -31,6 +31,36 @@
   box-shadow: 0 18px 40px -18px rgba(0,0,0,0.45);
 }
 
+/* Page transitions: each routed page remounts keyed by pathname (see
+   PageTransition.jsx), which restarts this fade/slide every navigation. */
+@keyframes sr-pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.sr-page-in { animation: sr-pageIn 0.45s cubic-bezier(.16,.84,.44,1) both; }
+
+/* Scroll reveal: Reveal.jsx toggles sr-reveal-visible via IntersectionObserver. */
+.sr-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1); }
+.sr-reveal-visible { opacity: 1; transform: translateY(0); }
+
+/* Toasts */
+@keyframes sr-toastIn { from { opacity: 0; transform: translateX(16px) scale(0.96); } to { opacity: 1; transform: translateX(0) scale(1); } }
+.sr-toast-in { animation: sr-toastIn 0.35s cubic-bezier(.16,.84,.44,1) both; }
+
+/* Loading skeletons */
+@keyframes sr-shimmer { 0% { background-position: -200px 0; } 100% { background-position: 200px 0; } }
+.sr-skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400px 100%;
+  animation: sr-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Respect reduced-motion preferences across all of the above. */
+@media (prefers-reduced-motion: reduce) {
+  .sr-fadeup, .sr-float, .sr-sweep, .sr-blink, .sr-bar-fill, .sr-page-in, .sr-toast-in, .sr-skeleton {
+    animation: none !important;
+  }
+  .sr-reveal { opacity: 1; transform: none; transition: none; }
+  .sr-card-hover:hover { transform: none; }
+}
+
 body {
   font-family: 'Inter', sans-serif;
 }

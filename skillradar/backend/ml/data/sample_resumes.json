@@ -1,0 +1,344 @@
+[
+  {
+    "content": "Data analyst with experience in SQL, Python and Power BI. Comfortable building dashboards and presenting findings to stakeholders.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 32,
+            "end": 34,
+            "text": "SQL"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 37,
+            "end": 42,
+            "text": "Python"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 48,
+            "end": 55,
+            "text": "Power BI"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 117,
+            "end": 128,
+            "text": "stakeholders"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "content": "Frontend developer skilled in JavaScript, React and CSS, with a focus on accessibility and testing.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 30,
+            "end": 39,
+            "text": "JavaScript"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 42,
+            "end": 46,
+            "text": "React"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 52,
+            "end": 54,
+            "text": "CSS"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 73,
+            "end": 85,
+            "text": "accessibility"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 91,
+            "end": 97,
+            "text": "testing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "content": "Backend engineer with strong Python and Node.js background, building REST APIs and working with Docker for deployment.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 29,
+            "end": 34,
+            "text": "Python"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 40,
+            "end": 46,
+            "text": "Node.js"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 69,
+            "end": 77,
+            "text": "REST APIs"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 96,
+            "end": 101,
+            "text": "Docker"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "content": "Data scientist with a background in statistics, machine learning and deep learning, using Python daily.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 36,
+            "end": 45,
+            "text": "statistics"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 48,
+            "end": 63,
+            "text": "machine learning"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 69,
+            "end": 81,
+            "text": "deep learning"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 90,
+            "end": 95,
+            "text": "Python"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "content": "DevOps engineer focused on Docker, CI/CD pipelines and AWS, with git for version control.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 27,
+            "end": 32,
+            "text": "Docker"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 35,
+            "end": 39,
+            "text": "CI/CD"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 55,
+            "end": 57,
+            "text": "AWS"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 65,
+            "end": 67,
+            "text": "git"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "content": "UI/UX designer proficient in Figma, wireframing and prototyping, with strong communication and critical thinking.",
+    "annotation": [
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 29,
+            "end": 33,
+            "text": "Figma"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 36,
+            "end": 46,
+            "text": "wireframing"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 52,
+            "end": 62,
+            "text": "prototyping"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 77,
+            "end": 89,
+            "text": "communication"
+          }
+        ]
+      },
+      {
+        "label": [
+          "Skills"
+        ],
+        "points": [
+          {
+            "start": 95,
+            "end": 111,
+            "text": "critical thinking"
+          }
+        ]
+      }
+    ]
+  }
+]

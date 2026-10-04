@@ -1,0 +1,23 @@
+{
+  "_source_note": "Sample course catalog, keyed by skill_id. Replace with a real scrape/API pull from Coursera, Udemy, or YouTube's Data API for production — see README.",
+  "courses": [
+    { "skill_id": "power_bi", "title": "Power BI for Analysts, start to finish", "platform": "Coursera", "duration_hours": 14, "difficulty": "Beginner", "free": false, "rating": 4.7, "url": "https://www.coursera.org/" },
+    { "skill_id": "data_viz", "title": "Storytelling with Data Visualization", "platform": "YouTube", "duration_hours": 3, "difficulty": "Beginner", "free": true, "rating": 4.6, "url": "https://www.youtube.com/" },
+    { "skill_id": "statistics", "title": "Applied Statistics for Analysts", "platform": "Udemy", "duration_hours": 9, "difficulty": "Intermediate", "free": false, "rating": 4.5, "url": "https://www.udemy.com/" },
+    { "skill_id": "sql", "title": "Advanced SQL: Window Functions & CTEs", "platform": "Coursera", "duration_hours": 6, "difficulty": "Intermediate", "free": false, "rating": 4.8, "url": "https://www.coursera.org/" },
+    { "skill_id": "typescript", "title": "TypeScript for JavaScript Developers", "platform": "YouTube", "duration_hours": 4, "difficulty": "Beginner", "free": true, "rating": 4.6, "url": "https://www.youtube.com/" },
+    { "skill_id": "testing", "title": "Testing React Apps with Vitest", "platform": "Udemy", "duration_hours": 5, "difficulty": "Intermediate", "free": false, "rating": 4.4, "url": "https://www.udemy.com/" },
+    { "skill_id": "accessibility", "title": "Web Accessibility Fundamentals", "platform": "YouTube", "duration_hours": 2, "difficulty": "Beginner", "free": true, "rating": 4.5, "url": "https://www.youtube.com/" },
+    { "skill_id": "react", "title": "React — The Complete Guide", "platform": "Udemy", "duration_hours": 20, "difficulty": "Beginner", "free": false, "rating": 4.7, "url": "https://www.udemy.com/" },
+    { "skill_id": "docker", "title": "Docker for Developers", "platform": "Coursera", "duration_hours": 8, "difficulty": "Beginner", "free": false, "rating": 4.6, "url": "https://www.coursera.org/" },
+    { "skill_id": "ci_cd", "title": "CI/CD with GitHub Actions", "platform": "YouTube", "duration_hours": 2, "difficulty": "Intermediate", "free": true, "rating": 4.5, "url": "https://www.youtube.com/" },
+    { "skill_id": "cloud", "title": "AWS Cloud Practitioner Essentials", "platform": "Coursera", "duration_hours": 12, "difficulty": "Beginner", "free": false, "rating": 4.7, "url": "https://www.coursera.org/" },
+    { "skill_id": "machine_learning", "title": "Machine Learning Specialization", "platform": "Coursera", "duration_hours": 40, "difficulty": "Intermediate", "free": false, "rating": 4.9, "url": "https://www.coursera.org/" },
+    { "skill_id": "deep_learning", "title": "Deep Learning with PyTorch", "platform": "Udemy", "duration_hours": 18, "difficulty": "Advanced", "free": false, "rating": 4.6, "url": "https://www.udemy.com/" },
+    { "skill_id": "system_design", "title": "System Design Interview Prep", "platform": "YouTube", "duration_hours": 5, "difficulty": "Intermediate", "free": true, "rating": 4.7, "url": "https://www.youtube.com/" },
+    { "skill_id": "figma", "title": "Figma UI/UX Design Essentials", "platform": "Udemy", "duration_hours": 10, "difficulty": "Beginner", "free": false, "rating": 4.6, "url": "https://www.udemy.com/" },
+    { "skill_id": "node", "title": "Node.js & Express — Build REST APIs", "platform": "Udemy", "duration_hours": 11, "difficulty": "Intermediate", "free": false, "rating": 4.5, "url": "https://www.udemy.com/" },
+    { "skill_id": "rest_api", "title": "API Design Best Practices", "platform": "YouTube", "duration_hours": 2, "difficulty": "Beginner", "free": true, "rating": 4.4, "url": "https://www.youtube.com/" },
+    { "skill_id": "sql_db_design", "title": "Database Design & Normalization", "platform": "Coursera", "duration_hours": 7, "difficulty": "Beginner", "free": false, "rating": 4.6, "url": "https://www.coursera.org/" }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "_source_note": "Role -> required skill level mappings. Modeled on how O*NET/Lightcast express role-skill importance (0-100 scale here for simplicity). Edit freely, or regenerate from a real O*NET 'Skills' report per occupation code.",
+  "roles": {
+    "Data Analyst": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "sql", "required": 85 },
+        { "skill_id": "python", "required": 75 },
+        { "skill_id": "excel", "required": 80 },
+        { "skill_id": "statistics", "required": 70 },
+        { "skill_id": "data_viz", "required": 75 },
+        { "skill_id": "power_bi", "required": 65 },
+        { "skill_id": "communication", "required": 60 }
+      ]
+    },
+    "Frontend Developer": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "javascript", "required": 90 },
+        { "skill_id": "react", "required": 85 },
+        { "skill_id": "css", "required": 80 },
+        { "skill_id": "html", "required": 75 },
+        { "skill_id": "typescript", "required": 65 },
+        { "skill_id": "accessibility", "required": 55 },
+        { "skill_id": "testing", "required": 60 },
+        { "skill_id": "git", "required": 70 }
+      ]
+    },
+    "Backend Developer": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "python", "required": 75 },
+        { "skill_id": "node", "required": 70 },
+        { "skill_id": "rest_api", "required": 85 },
+        { "skill_id": "sql_db_design", "required": 80 },
+        { "skill_id": "docker", "required": 60 },
+        { "skill_id": "system_design", "required": 55 },
+        { "skill_id": "git", "required": 70 }
+      ]
+    },
+    "Data Scientist": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "python", "required": 85 },
+        { "skill_id": "statistics", "required": 85 },
+        { "skill_id": "machine_learning", "required": 80 },
+        { "skill_id": "sql", "required": 70 },
+        { "skill_id": "deep_learning", "required": 55 },
+        { "skill_id": "data_viz", "required": 65 },
+        { "skill_id": "communication", "required": 60 }
+      ]
+    },
+    "DevOps Engineer": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "docker", "required": 85 },
+        { "skill_id": "ci_cd", "required": 85 },
+        { "skill_id": "cloud", "required": 80 },
+        { "skill_id": "git", "required": 70 },
+        { "skill_id": "system_design", "required": 65 },
+        { "skill_id": "python", "required": 55 }
+      ]
+    },
+    "UI/UX Designer": {
+      "experience_levels": ["Fresher", "Intermediate", "Experienced"],
+      "requirements": [
+        { "skill_id": "figma", "required": 85 },
+        { "skill_id": "html", "required": 50 },
+        { "skill_id": "css", "required": 50 },
+        { "skill_id": "communication", "required": 70 },
+        { "skill_id": "critical_thinking", "required": 65 },
+        { "skill_id": "accessibility", "required": 60 }
+      ]
+    }
+  }
+}

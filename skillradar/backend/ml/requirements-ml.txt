@@ -1,0 +1,7 @@
+# Only needed if you're training/retraining the skill-extraction model.
+# The main app (requirements.txt) does NOT need these — it only needs
+# them at inference time if you copy a trained model in, and even then
+# only scikit-learn + joblib (already listed below) are required at runtime.
+scikit-learn==1.5.2
+pandas==2.2.3
+joblib==1.4.2

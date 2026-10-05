@@ -14,6 +14,6 @@ Werkzeug==3.0.3
 scikit-learn==1.5.2
 joblib==1.4.2
 gunicorn==22.0.0
-psycopg2-binary==2.9.10
+psycopg[binary]==3.2.3
 # Used by routes/report.py to generate the downloadable PDF gap report.
 reportlab==4.2.5

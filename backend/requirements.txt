@@ -6,7 +6,7 @@ python-dotenv==1.0.1
 pdfplumber==0.11.4
 python-docx==1.1.2
 Werkzeug==3.0.3
-psycopg2-binary==2.9.9
+
 # Runtime support for the optional trained skill-extraction model
 # (backend/ml/). Only actually used if backend/ml/model/skill_ner_model.joblib
 # exists; the app runs fine without ever calling into scikit-learn if you
